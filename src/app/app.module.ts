@@ -17,10 +17,21 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 
 import { AppComponent } from './app.component';
+import {RouterModule} from "@angular/router";
+import {MenuComponent} from "./menu.component";
+import {NotFoundComponent} from "./not-found/not-found.component";
+import {RippleModule} from "primeng/ripple";
+import {MenubarModule} from "primeng/menubar";
+import {ProductTable} from "./products/product-table";
+import {DataViewModule} from "primeng/dataview";
+import {TagModule} from "primeng/tag";
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        MenuComponent,
+        ProductTable,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
@@ -37,9 +48,20 @@ import { AppComponent } from './app.component';
         InputTextareaModule,
         RadioButtonModule,
         DropdownModule,
-        ButtonModule
+        ButtonModule,
+        RouterModule.forRoot([
+            {path: '', pathMatch: 'full', redirectTo: '/edit'},
+            {path: 'edit', component: AppComponent},
+            {path: 'product', component: ProductTable},
+            {path: '404', component: NotFoundComponent},
+            {path: '**', redirectTo: '/404'}
+        ]),
+        RippleModule,
+        MenubarModule,
+        DataViewModule,
+        TagModule,
     ],
     providers: [ConfirmationService],
-    bootstrap: [AppComponent]
+    bootstrap: [MenuComponent]
 })
 export class AppModule { }
